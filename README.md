@@ -74,7 +74,7 @@
  
   
 ## 🚀 Updates
-- [x] **\[2025.02.27\]** DEIM is accepted by CVPR 2025.
+- [x] **\[2025.02.27\]** The DEIM paper is accepted to CVPR 2025. Thanks to all co-authors.
 - [x] **\[2024.12.26\]** A more efficient implementation of Dense O2O, achieving nearly a 30% improvement in loading speed (See [the pull request](https://github.com/ShihuaHuang95/DEIM/pull/13) for more details). Huge thanks to my colleague [Longfei Liu](https://github.com/capsule2077).
 - [x] **\[2024.12.03\]** Release DEIM series. Besides, this repo also supports the re-implmentations of [D-FINE](https://arxiv.org/abs/2410.13842) and [RT-DETR](https://arxiv.org/abs/2407.17140).
 
@@ -433,10 +433,8 @@ If you use `DEIM` or its methods in your work, please cite the following BibTeX 
 @misc{huang2024deim,
       title={DEIM: DETR with Improved Matching for Fast Convergence},
       author={Shihua Huang, Zhichao Lu, Xiaodong Cun, Yongjun Yu, Xiao Zhou, and Xi Shen},
-      year={2024},
-      eprint={2412.04234},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+      booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+      year={2025},
 }
 ```
 </details>
