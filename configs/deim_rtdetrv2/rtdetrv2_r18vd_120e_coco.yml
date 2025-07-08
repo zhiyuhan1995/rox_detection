@@ -1,5 +1,6 @@
 __include__: [
-  '../dataset/coco_detection.yml',
+  '../dataset/coco_bop_detection.yml',
+  #'../dataset/coco_detection.yml',
   '../runtime.yml',
   '../base/dataloader.yml',
   '../base/rt_optimizer.yml',
@@ -7,7 +8,7 @@ __include__: [
 ]
 
 
-output_dir: ./output/rtdetrv2_r18vd_120e_coco
+output_dir: ./outputs/rtdetrv2_r18vd_120e_coco
 
 
 PResNet:
@@ -41,4 +42,4 @@ train_dataloader:
       policy:
         epoch: 117
   collate_fn:
-    scales: ~
+    stop_epoch: 117

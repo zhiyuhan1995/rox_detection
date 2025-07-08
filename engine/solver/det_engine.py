@@ -39,7 +39,10 @@ def train_one_epoch(self_lr_scheduler, lr_scheduler, model: torch.nn.Module, cri
 
     cur_iters = epoch * len(data_loader)
 
-    for i, (samples, targets) in enumerate(metric_logger.log_every(data_loader, print_freq, header)):
+    from tqdm import tqdm
+
+    #data_iter = metric_logger.log_every(data_loader, print_freq, header)
+    for i, (samples, targets) in enumerate(tqdm(data_loader, desc=f"Epoche {epoch}", unit="batch")):
         samples = samples.to(device)
         targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
         global_step = epoch * len(data_loader) + i
@@ -150,6 +153,8 @@ def evaluate(model: torch.nn.Module, criterion: torch.nn.Module, postprocessor, 
         # if 'segm' in postprocessor.keys():
         #     target_sizes = torch.stack([t["size"] for t in targets], dim=0)
         #     results = postprocessor['segm'](results, outputs, orig_target_sizes, target_sizes)
+
+        # results[0]["boxes"] = outputs["pred_boxes"][0]
 
         res = {target['image_id'].item(): output for target, output in zip(targets, results)}
         if coco_evaluator is not None:

@@ -61,7 +61,10 @@ class DetSolver(BaseSolver):
         best_stat_print = best_stat.copy()
         start_time = time.time()
         start_epoch = self.last_epoch + 1
-        for epoch in range(start_epoch, args.epoches):
+        
+        from tqdm import trange
+
+        for epoch in trange(start_epoch, args.epoches, desc="Training Epochs"):
 
             self.train_dataloader.set_epoch(epoch)
             # self.train_dataloader.dataset.set_epoch(epoch)
@@ -117,8 +120,9 @@ class DetSolver(BaseSolver):
             # TODO
             for k in test_stats:
                 if self.writer and dist_utils.is_main_process():
+                    metrics = {0: "AP_all", 1: "AP_50", 2: "AP_75", 3: "AP_small", 4: "AP_medium", 5: "AP_large", 6: "AR_all", 7:"AR_second", 8:"AR_third", 9: "AR_small", 10: "AR_medium", 11: "AR_large", 12: "AR_50", 13: "AR_75"}
                     for i, v in enumerate(test_stats[k]):
-                        self.writer.add_scalar(f'Test/{k}_{i}'.format(k), v, epoch)
+                        self.writer.add_scalar(f'Test/{metrics[i]}', v, epoch)
 
                 if k in best_stat:
                     best_stat['epoch'] = epoch if test_stats[k][0] > best_stat[k] else best_stat['epoch']

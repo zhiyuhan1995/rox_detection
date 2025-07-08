@@ -25,6 +25,7 @@ flat_epoch: 34    # 4 + 60 / 2
 no_aug_epoch: 2
 
 train_dataloader: 
+  total_batch_size: 4
   dataset: 
     transforms:
       policy:
@@ -33,3 +34,6 @@ train_dataloader:
   collate_fn:
     mixup_epochs: [4, 34]
     stop_epoch: 58
+
+val_dataloader:
+  total_batch_size: 4

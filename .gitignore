@@ -129,6 +129,7 @@ dmypy.json
 
 # PyCharm
 .idea
+.vscode
 
 *.pt
 *.pth
@@ -136,3 +137,17 @@ dmypy.json
 *.zip
 *.html
 .DS_Store
+
+A2227580001
+A2227580001_01
+A2227580001_copy
+A2227580001_mini
+
+
+imgs
+checkpoints/*
+
+train_yolo/
+test_yolo/
+outputs/
+runs/
