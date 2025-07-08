@@ -251,26 +251,26 @@ To train on your custom dataset, you need to organize it in the COCO format. Fol
 
 1. Training
 ```shell
-CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/deim_dfine/deim_hgnetv2_${model}_coco.yml --use-amp --seed=0
+CUDA_VISIBLE_DEVICES=0 torchrun --master_port=7777 --nproc_per_node=1 train.py -c configs/${model_catagory}/your_model_config.yml --use-amp --seed=0
 ```
 
 <!-- <summary>2. Testing </summary> -->
 2. Testing
 ```shell
-CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/deim_dfine/deim_hgnetv2_${model}_coco.yml --test-only -r model.pth
+CUDA_VISIBLE_DEVICES=0 torchrun --master_port=7777 --nproc_per_node=1 train.py -c configs/${model_catagory}/your_model_config.yml --test-only -r model.pth
 ```
 
 <!-- <summary>3. Tuning </summary> -->
 3. Tuning
 ```shell
-CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/deim_dfine/deim_hgnetv2_${model}_coco.yml --use-amp --seed=0 -t model.pth
+CUDA_VISIBLE_DEVICES=0 torchrun --master_port=7777 --nproc_per_node=1 train.py -c configs/${model_catagory}/your_model_config.yml --use-amp --seed=0 -t model.pth
 ```
 </details>
 
 <details>
-<summary> Customizing Batch Size </summary>
+<summary> Customizing Batch Size for DEIM/DFINE/DETR </summary>
 
-For example, if you want to double the total batch size when training D-FINE-L on COCO2017, here are the steps you should follow:
+For example, if you want to double the total batch size when training D-FINE-L , here are the steps you should follow:
 
 1. **Modify your [dataloader.yml](./configs/base/dataloader.yml)** to increase the `total_batch_size`:
 
@@ -308,9 +308,9 @@ For example, if you want to double the total batch size when training D-FINE-L o
 
 
 <details>
-<summary> Customizing Input Size </summary>
+<summary> Customizing Input Size for DEIM/DFINE/DETR </summary>
 
-If you'd like to train **DEIM** on COCO2017 with an input size of 320x320, follow these steps:
+If you'd like to train **DEIM** on BOP with an input size of 320x320, follow these steps:
 
 1. **Modify your [dataloader.yml](./configs/base/dataloader.yml)**:
 
@@ -334,6 +334,26 @@ If you'd like to train **DEIM** on COCO2017 with an input size of 320x320, follo
     ```yaml
     eval_spatial_size: [320, 320]
     ```
+
+</details>
+
+<details>
+<summary> Customizing Batch Size and Input Size for YOLO </summary>
+
+
+For example, if you want to double the total batch size when training YOLO , here are the steps you should follow:
+
+**Modify your [config.yml](./configs/yolo/config.yml)** to increase the `batch_size` and decrease inpute image size:
+
+  ```yaml
+  task: yolo
+  seed: 42
+  patience: 50
+  epochs: 1
+  save_period: 4
+  batch_size: 32
+  imgsz: 320 #800
+  ```
 
 </details>
 
