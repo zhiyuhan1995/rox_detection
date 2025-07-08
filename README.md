@@ -116,8 +116,9 @@
 ### Setup
 
 ```shell
-conda create -n deim python=3.11.9
-conda activate deim
+conda create -n rox_det python=3.10 opencv=4.8 protobuf=4.23.4 absl-py=1.4.0 -c conda-forge
+conda activate rox_det
+pip install ultralytics
 pip install -r requirements.txt
 ```
 
