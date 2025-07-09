@@ -27,9 +27,9 @@ def delete_folder_contents(folder_path):
             except Exception as e:
                 print(f'Failed to delete {file_path}. Reason: {e}')
 
-def convert_subset(bop_root:str, subset:str):
+def convert_subset(bop_root:str, output_dir:str, subset:str):
     bop_subset = os.path.join(bop_root, f"./{subset}_pbr")
-    output_root = f"./data_yolo/{subset}_yolo"
+    output_root = os.path.join(output_dir, f"{subset}_yolo")
 
     images_dir = os.path.join(output_root, "images")
     labels_dir = os.path.join(output_root, "labels")
@@ -89,18 +89,19 @@ def convert_subset(bop_root:str, subset:str):
                     f.write(f"{class_id} {cx:.6f} {cy:.6f} {bw:.6f} {bh:.6f}\n")
 
 
-def convert_dataset(bop_root):
+def convert_dataset(bop_root:str, output_dir:str = "data_yolo"):
     for subset in subsets:
-        convert_subset(bop_root, subset)
+        convert_subset(bop_root, output_dir, subset)
 def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-d', '--data', type=str, help='path to your bop dataset')
+    parser.add_argument('-o', '--output-dir', type=str, help='path to the converted yolo dataset')
 
     args = parser.parse_args()
 
 
-    convert_dataset(args.data)
+    convert_dataset(args.data, args.output_dir)
 
 if __name__ == '__main__':
     main()
