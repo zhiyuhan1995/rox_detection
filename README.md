@@ -126,123 +126,60 @@ pip install -r requirements.txt
 ### Data Preparation
 
 <details>
-<summary> COCO2017 Dataset </summary>
+<summary> BOP Dataset </summary>
 
-1. Download COCO2017 from [OpenDataLab](https://opendatalab.com/OpenDataLab/COCO_2017) or [COCO](https://cocodataset.org/#download).
-1. Modify paths in [coco_detection.yml](./configs/dataset/coco_detection.yml)
-
-    ```yaml
-    train_dataloader:
-        img_folder: /data/COCO2017/train2017/
-        ann_file: /data/COCO2017/annotations/instances_train2017.json
-    val_dataloader:
-        img_folder: /data/COCO2017/val2017/
-        ann_file: /data/COCO2017/annotations/instances_val2017.json
-    ```
-
-</details>
-
-<details>
-<summary>Custom Dataset</summary>
-
-To train on your custom dataset, you need to organize it in the COCO format. Follow the steps below to prepare your dataset:
-
-1. **Set `remap_mscoco_category` to `False`:**
-
-    This prevents the automatic remapping of category IDs to match the MSCOCO categories.
+1. Download or copy your BOP dataset for detection in your local.
+2. Modify paths in [bop_detection.yml](./configs/dataset/bop_detection.yml)
 
     ```yaml
-    remap_mscoco_category: False
-    ```
-
-2. **Organize Images:**
-
-    Structure your dataset directories as follows:
-
-    ```shell
-    dataset/
-    ├── images/
-    │   ├── train/
-    │   │   ├── image1.jpg
-    │   │   ├── image2.jpg
-    │   │   └── ...
-    │   ├── val/
-    │   │   ├── image1.jpg
-    │   │   ├── image2.jpg
-    │   │   └── ...
-    └── annotations/
-        ├── instances_train.json
-        ├── instances_val.json
-        └── ...
-    ```
-
-    - **`images/train/`**: Contains all training images.
-    - **`images/val/`**: Contains all validation images.
-    - **`annotations/`**: Contains COCO-formatted annotation files.
-
-3. **Convert Annotations to COCO Format:**
-
-    If your annotations are not already in COCO format, you'll need to convert them. You can use the following Python script as a reference or utilize existing tools:
-
-    ```python
-    import json
-
-    def convert_to_coco(input_annotations, output_annotations):
-        # Implement conversion logic here
-        pass
-
-    if __name__ == "__main__":
-        convert_to_coco('path/to/your_annotations.json', 'dataset/annotations/instances_train.json')
-    ```
-
-4. **Update Configuration Files:**
-
-    Modify your [custom_detection.yml](./configs/dataset/custom_detection.yml).
-
-    ```yaml
-    task: detection
-
-    evaluator:
-      type: CocoEvaluator
-      iou_types: ['bbox', ]
-
-    num_classes: 777 # your dataset classes
-    remap_mscoco_category: False
-
     train_dataloader:
       type: DataLoader
       dataset:
-        type: CocoDetection
-        img_folder: /data/yourdataset/train
-        ann_file: /data/yourdataset/train/train.json
+        type: BopDetection
+        root: A2227580001
+        split: train_pbr
         return_masks: False
         transforms:
           type: Compose
           ops: ~
       shuffle: True
-      num_workers: 4
+      num_workers: 1
       drop_last: True
       collate_fn:
         type: BatchImageCollateFunction
-
+    
+    
     val_dataloader:
       type: DataLoader
       dataset:
-        type: CocoDetection
-        img_folder: /data/yourdataset/val
-        ann_file: /data/yourdataset/val/ann.json
+        type: BopDetection
+        root: A2227580001
+        split: val_pbr
         return_masks: False
         transforms:
           type: Compose
           ops: ~
       shuffle: False
-      num_workers: 4
+      num_workers: 1
       drop_last: False
       collate_fn:
         type: BatchImageCollateFunction
     ```
 
 </details>
+
+<details>
+<summary> YOLO Dataset </summary>
+
+When training YOLO, you have to convert your existing BOP dataset to YOLO format by:
+
+```shell
+python tools/dataset/bop2yolo.py -d path/to/your/BOP/dataset
+```
+
+</details>
+
+
 
 
 ## 3. Usage
