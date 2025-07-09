@@ -129,9 +129,12 @@ pip install -r requirements.txt
 <summary> BOP Dataset </summary>
 
 1. Download or copy your BOP dataset for detection in your local.
-2. Modify paths in [bop_detection.yml](./configs/dataset/bop_detection.yml)
+2. Modify paths and customize the number of classes in [bop_detection.yml](./configs/dataset/bop_detection.yml)
 
     ```yaml
+    num_classes: 1 # your dataset classes
+    remap_mscoco_category: False
+
     train_dataloader:
       type: DataLoader
       dataset:
@@ -171,12 +174,25 @@ pip install -r requirements.txt
 <details>
 <summary> YOLO Dataset </summary>
 
-When training YOLO, you have to convert your existing BOP dataset to YOLO format by:
+1. When training YOLO, you have to convert your existing BOP dataset to YOLO format by:
 
 ```shell
 python tools/dataset/bop2yolo.py -d path/to/your/BOP/dataset
 ```
 The output path is set as ./datadata_yolo by default, you can set it on your own by the argument "-o"
+
+2. Customize the name and number of classes in [yolo_detection.yml](./configs/dataset/yolo_detection.yml):
+   ```yaml
+    train: ../../data_yolo/dataset_temp/images/train  # Train images (relative to 'path')
+    val: ../../data_yolo/dataset_temp/images/val  # Validation images (relative to 'path')
+    test: ../../data_yolo/dataset_temp/images/test  # Test images (relative to 'path')
+    
+    nc: 1  # Number of classes
+    ch: d
+    
+    names:
+      0: A2227580001
+    ```
 
 </details>
 
