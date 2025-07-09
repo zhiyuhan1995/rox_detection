@@ -151,3 +151,5 @@ train_yolo/
 test_yolo/
 outputs/
 runs/
+detr_results/
+data_yolo/

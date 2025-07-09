@@ -1,0 +1,10 @@
+train: ../../data_yolo/dataset_temp/images/train  # Train images (relative to 'path')
+val: ../../data_yolo/dataset_temp/images/val  # Validation images (relative to 'path')
+test: ../../data_yolo/dataset_temp/images/test  # Test images (relative to 'path')
+
+nc: 1  # Number of classes
+ch: d
+
+names:
+  0: A2227580001
+

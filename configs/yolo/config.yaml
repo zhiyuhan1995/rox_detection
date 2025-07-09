@@ -1,0 +1,24 @@
+data_cfg: configs/dataset/yolo_detection.yaml
+training_dataset: data_yolo/train_yolo
+test_dataset: data_yolo/test_yolo
+
+output_dir: outputs/yolo
+
+fraction_val_data: 0.1
+
+task: yolo
+seed: 42
+patience: 50
+epochs: 1
+save_period: 4
+batch_size: 8
+imgsz: 640 #800
+
+apply_augmentations: True
+augmentations:
+  degrees: 90   #range up to a certain angle, default 0.0
+  flipud: 0.5   #probability between 0.0 and 1.0, default 0.0
+  fliplr: 0.5   #probability between 0.0 and 1.0, default 0.0
+  mosaic: 0.0   #probability between 0.0 and 1.0, default 1.0
+  mixup: 0.0    #probability between 0.0 and 1.0, default 0.0
+  copy_paste: 0.0   #probability between 0.0 and 1.0, default 0.5, https://arxiv.org/pdf/2012.07177 
