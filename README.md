@@ -176,6 +176,7 @@ When training YOLO, you have to convert your existing BOP dataset to YOLO format
 ```shell
 python tools/dataset/bop2yolo.py -d path/to/your/BOP/dataset
 ```
+The output path is set as ./datadata_yolo by default, you can set it on your own by the argument "-o"
 
 </details>
 
