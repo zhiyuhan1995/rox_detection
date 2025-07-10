@@ -72,14 +72,14 @@ def convert_subset(bop_root:str, output_dir:str, subset:str):
             new_label_name = f"{global_image_index:06d}.txt"
             global_image_index += 1
 
-            # 拷贝图像
+            # Copy image
             src_img_path = os.path.join(scene_path,  file_name[:-3]+"png")
             dst_img_path = os.path.join(images_dir, new_image_name)
 
             with Image.open(src_img_path) as im:
                 im.convert("RGB").save(dst_img_path, "PNG")
 
-            # 写入 label
+            # Write label
             label_path = os.path.join(labels_dir, new_label_name)
             with open(label_path, "w") as f:
                 for ann in annotations_by_image.get(img_id, []):
@@ -96,7 +96,7 @@ def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-d', '--data', type=str, help='path to your bop dataset')
-    parser.add_argument('-o', '--output-dir', type=str, help='path to the converted yolo dataset')
+    parser.add_argument('-o', '--output-dir', type=str, help='path to the converted yolo dataset', default="data_yolo")
 
     args = parser.parse_args()
 

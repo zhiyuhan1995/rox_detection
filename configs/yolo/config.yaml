@@ -4,14 +4,14 @@ test_dataset: data_yolo/test_yolo
 
 output_dir: outputs/yolo
 
-fraction_val_data: 0.1
+fraction_val_data: 0.05
 
 task: yolo
 seed: 42
 patience: 50
 epochs: 1
 save_period: 4
-batch_size: 8
+batch_size: 16
 imgsz: 640 #800
 
 apply_augmentations: True
