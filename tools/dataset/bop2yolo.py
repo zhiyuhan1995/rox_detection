@@ -92,6 +92,7 @@ def convert_subset(bop_root:str, output_dir:str, subset:str):
 def convert_dataset(bop_root:str, output_dir:str = "data_yolo"):
     for subset in subsets:
         convert_subset(bop_root, output_dir, subset)
+        
 def main():
     parser = argparse.ArgumentParser()
 

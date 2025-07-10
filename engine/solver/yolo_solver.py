@@ -22,7 +22,7 @@ class YoloSolver(object):
         #self.base_dir = os.path.dirname(os.path.abspath(__file__))
         self.base_dir = os.getcwd()
 
-        self.model_size = 'm' #'m'
+        self.model_size = 'n' #'m'
         self.imgsz = cfg.yaml_cfg['imgsz']
         self.batch_size = cfg.yaml_cfg['batch_size'] #should use maximum possible (setting to 8 is only necessary e.g. for model m and imgsz = 1024)
         self.fraction_val_data = cfg.yaml_cfg['fraction_val_data']
@@ -121,7 +121,7 @@ class YoloSolver(object):
 
     def fit(self):
         cfg = self.cfg
-        
+        cfg.output_dir = f"yolov8{self.model_size}"
         self.save_dir = os.path.join(self.base_dir, cfg.output_dir) #path where all training runs are saved
         if not os.path.exists(self.save_dir):
             os.makedirs(self.save_dir)
@@ -139,7 +139,7 @@ class YoloSolver(object):
         else:
             training_data_index = self.existing_index
 
-        self.prepare_training_data()
+        #self.prepare_training_data()
 
         #2.2: SET UP YOLO MODEL WITH 4 CHANNELS
         # https://github.com/ultralytics/ultralytics/issues/3432
@@ -287,7 +287,7 @@ class YoloSolver(object):
         cfg = self.cfg
 
         self._setup()
-
+        cfg.output_dir = f"yolov8{self.model_size}"
         self.save_dir = os.path.join(self.base_dir, cfg.output_dir, 'test_results')
         if not os.path.exists(self.save_dir):
             os.makedirs(self.save_dir)
@@ -337,7 +337,7 @@ class YoloSolver(object):
             print(f"Error loading model from {model_path}: {e}")
         
         '''3.2: SETUP TEST DATA'''
-        self.prepare_test_data()
+        #self.prepare_test_data()
 
         '''3.3: EVALUATE MODEL AND REPORT PERFORMANCE'''
         metrics = self.model.val(data=os.path.join(self.base_dir, self.data_cfg_file), split="test")

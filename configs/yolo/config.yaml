@@ -9,8 +9,8 @@ fraction_val_data: 0.05
 task: yolo
 seed: 42
 patience: 50
-epochs: 1
-save_period: 4
+epochs: 100
+save_period: 5
 batch_size: 16
 imgsz: 640 #800
 
