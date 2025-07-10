@@ -201,7 +201,7 @@ The output path is set as ./datadata_yolo by default, you can set it on your own
 
 ## 3. Usage
 <details open>
-<summary> COCO2017 </summary>
+<summary> General </summary>
 
 1. Training
 ```shell
